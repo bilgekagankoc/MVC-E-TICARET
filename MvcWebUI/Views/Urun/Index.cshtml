@@ -1,0 +1,72 @@
+﻿@model IEnumerable<UrunModel>
+@{
+    ViewData["Title"] = "Ürün Listesi";
+
+}
+
+<h1 class="text-center m-4">@ViewData["Title"]</h1>
+
+
+<div class="row">
+    <div class="col-11 m-4">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["Success"]
+            </div>
+        }
+
+        <a href="/Urun/AddView" class="btn btn-primary mb-2">Urun Ekle</a>
+        <table class="table" id="urunler">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Adı</th>
+                    <th scope="col">Fiyatı</th>
+                    <th scope="col">StokMiktarı</th>
+                    <th scoper="col">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var urun in Model)
+                {
+                    <tr>
+                        <td>@urun.Id</td>
+                        <td>@urun.KategoriAdiDisplay</td>
+                        <td>@urun.Adi</td>
+                        <td>@urun.BirimFiyatiDisplay</td>
+                        <td>@urun.StokMiktari</td>
+                        <td>@*<button type="button" class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@urun.Id">Düzenle</button>*@
+                        <a asp-action="EditView" asp-route-id="@urun.Id">Düzenle</a>  
+                           | 
+                        <a asp-action="Detail" asp-route-id="@urun.Id">Detay</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+<link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(function() {
+        $('#urunler').DataTable({
+            language: {
+                // Eğer kullanılan metinsel bir dosyada Türkçe karakter sorunu varsa
+                // dosya Notepad ile açılıp kodlama (encoding) UTF-8'e değiştirilerek kaydedilmelidir.
+                url: "/json/datatablesTurkish.json"
+            }
+        });
+    });
+</script>
+
+}
+
+
+
+

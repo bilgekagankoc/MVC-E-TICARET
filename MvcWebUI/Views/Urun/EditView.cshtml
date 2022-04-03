@@ -1,0 +1,76 @@
+﻿@model UrunModel
+@{
+    ViewData["Title"] = "Ürün Düzenleme";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h1 class="text-center m-4">@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-6 m-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="Urun" asp-action="Edit" id="urunEkle">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="Id" hidden>
+            <div class="mb-3">
+                <label asp-for="Adi" class="form-label"></label>
+                <input asp-for="Adi" type="text" class="form-control" id="urunAdi">
+                <span asp-validation-for="Adi" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Aciklamasi" class="form-label"></label>
+                <textarea asp-for="Aciklamasi" type="text" class="form-control" id="aciklamasi" rows="3"></textarea>
+                <span asp-validation-for="Aciklamasi" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="BirimFiyati" class="form-label"></label>
+                <input type="number" asp-for="BirimFiyati" class="form-control" id="birimFiyati" />
+                <span asp-validation-for="BirimFiyati" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="StokMiktari" class="form-label"></label>
+                <input type="number" asp-for="StokMiktari" class="form-control" id="stokFiyati" />
+                <span asp-validation-for="StokMiktari" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="SonKullanmaTarihi" class="form-label"></label>
+                <input type="text" asp-for="SonKullanmaTarihi" class="form-control" id="sonKullanmaTarihi" />
+                <span asp-validation-for="SonKullanmaTarihi" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="KategoriId" class="form-label"></label>
+                <select asp-for="KategoriId" asp-items="ViewBag.KategoriId" class="form-control">
+                    <option value="">-- Seçiniz --</option>
+                </select>
+                <span asp-validation-for="KategoriId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</div>
+@section Scripts{
+    	@*https://uxsolutions.github.io/bootstrap-datepicker*@
+<link rel="stylesheet" href="/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+<script src="/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
+
+        @* https://select2.org/ *@
+<link rel="stylesheet" href="/lib/select2/css/select2.min.css" />
+<script src="/lib/select2/js/select2.min.js"></script>
+<script src="/lib/select2/js/i18n/tr.min.js"></script>
+<script>
+
+        $( document ).ready(function() {
+               $('#sonKullanmaTarihi').datepicker({
+               todayBtn: "linked",
+                language: "tr",
+                orientation: "top auto",
+                autoclose: true,
+                todayHighlight: true
+               });
+    });
+
+</script>
+}

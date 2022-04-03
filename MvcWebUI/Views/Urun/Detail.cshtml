@@ -1,0 +1,30 @@
+﻿@model UrunModel
+@{
+    ViewData["Title"] = "Ürün Detayları";
+}
+<div class="row mt-4 ml-2">
+    <div class="col-12">
+        <h1 >@ViewData["Title"]</h1>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-4 text-center">
+        <div class="card m-4">
+            <div class="card-header">
+                <label asp-for="KategoriAdiDisplay"> : @Model.KategoriAdiDisplay</label>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><label asp-for="Adi"></label>: @Model.Adi</li>
+                    <li class="list-group-item"><label asp-for="BirimFiyatiDisplay"></label> : @Model.BirimFiyatiDisplay</li>
+                    <li class="list-group-item"><label asp-for="SonKullanmaTarihi"></label> : @Model.SonKullanmaTarihiDisplay</li>
+                    <li class="list-group-item"><label asp-for="Aciklamasi"></label> : @Model.Aciklamasi</li>
+                    <li class="list-group-item"><label asp-for="StokMiktari"></label> : @Model.StokMiktari</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
