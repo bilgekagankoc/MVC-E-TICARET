@@ -12,7 +12,8 @@ namespace DataAccess.Contexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString: @"server=.;database=MVCCALISMA;user id=sa;password=122333;multipleactiveresultsets=true;");
+            // optionsBuilder.UseSqlServer(connectionString: @"server=.;database=MVCCALISMA;user id=sa;password=122333;multipleactiveresultsets=true;"); //EV
+            optionsBuilder.UseSqlServer(connectionString: @"Server=(localdb)\mssqllocaldb; initial catalog  =ETICARET; integrated security = true");
         }
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<Kategori> Kategoriler { get; set; }
