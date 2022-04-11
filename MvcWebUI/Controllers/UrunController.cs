@@ -74,7 +74,7 @@ namespace MvcWebUI.Controllers
             {
                 ViewBag.KategoriId = new SelectList(_kategoriService.Query().ToList(), "Id", "Adi", urun.KategoriId);
                 ModelState.AddModelError("", result.Message);
-                return View(urun);
+                return RedirectToAction("EditView",urun);
             }
         }
 
@@ -91,6 +91,29 @@ namespace MvcWebUI.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+        }
+        public IActionResult Delete(int id)
+        {
+            var result = _urunService.Query().SingleOrDefault(x => x.Id == id);
+            if(result != null)
+            {
+                var deleteResult = _urunService.Delete(id);
+                if (deleteResult.IsSuccessful)
+                {
+                    TempData["Success"] = result.Adi + " Adlı Ürün Silindi";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["Success"] = "Silme İşlemi Başarısız";
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else
+            {
+                TempData["Success"] = "Ürün Bulunamadı";
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }

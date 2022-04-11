@@ -24,12 +24,24 @@ namespace Business.Services
 
         public Result Add(KategoriModel model)
         {
-            throw new NotImplementedException();
+            if(Repo.Query().Any(x => x.Adi.ToUpper().Trim() == model.Adi.ToUpper().Trim()))
+            {
+                return new ErrorResult("Bu İsimde Kategori Bulunmaktadır.");
+            }
+            Kategori kategori = new Kategori()
+            {
+                Aciklamasi = model.Aciklamasi,
+                Adi = model.Adi,
+                Guid = Guid.NewGuid().ToString(),
+            };
+            Repo.Add(kategori);
+            return new SuccessResult("Ürün Başarıyla Kaydedildi");
         }
 
         public Result Delete(int id)
         {
-            throw new NotImplementedException();
+            Repo.Delete(x => x.Id == id);
+            return new SuccessResult("Başarıyla Silindi");
         }
 
         public void Dispose()
@@ -51,7 +63,21 @@ namespace Business.Services
 
         public Result Update(KategoriModel model)
         {
-            throw new NotImplementedException();
+            var result = Repo.Query().Any(x => x.Adi.ToUpper().Trim() == model.Adi.ToUpper().Trim());
+            if(Repo.Query().Any(x => x.Adi.ToUpper().Trim() == model.Adi.ToUpper().Trim()))
+            {
+                return new ErrorResult("Girdiğiniz isimde ürün adı bulunmaktadır.");
+            }
+            else
+            {
+                Kategori kategoriEntity = Repo.Query().SingleOrDefault(x => x.Id == model.Id);
+                kategoriEntity.Adi = model.Adi;
+                kategoriEntity.Aciklamasi = model.Aciklamasi;
+                Repo.Update(kategoriEntity);
+                return new SuccessResult("Ürün başarıyla güncellendi.");
+            }
         }
+
+        
     }
 }

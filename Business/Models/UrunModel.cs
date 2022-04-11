@@ -14,7 +14,7 @@ namespace Business.Models
 
         [StringLength(500, ErrorMessage = "{0} en fazla {1} karakter olmalıdır!")]
         [DisplayName("Açıklaması")]
-        public string? Aciklamasi { get; set; }
+        public string Aciklamasi { get; set; }
 
         [Range(0, 1000000000, ErrorMessage = "{0} {1} ile {2} aralığında olmalıdır!")] // {0}: Birim Fiyatı, {1}: 0, {2}: 1000000000
         [Required(ErrorMessage = "{0} gereklidir!")] // BirimFiyati nullable olmadığı için zorunlu, required mesajını özelleştirebilmek için data annotation'ı ekledik
@@ -27,18 +27,21 @@ namespace Business.Models
         public int? StokMiktari { get; set; }
 
         [DisplayName("Son Kullanma Tarihi")]
-        [Required(ErrorMessage = "{0} gereklidir!")]
         public DateTime? SonKullanmaTarihi { get; set; }
 
         [DisplayName("Kategori")]
         [Required(ErrorMessage = "{0} gereklidir!")]
         public int? KategoriId { get; set; }
+
+        [StringLength(255)]
+        [DisplayName("İmaj")]
+        public string ImajDosyaYolu { get; set; }
         #endregion
 
         #region Sayfanın ekstra ihtiyacı olan özellikler
         // eğer ürün model üzerinden bir kategorinin adı dışında diğer özellikleri (Id, Aciklamasi, vb.) de kullanılmak isteniyorsa bu şekilde referans tanımlanabilir ve bu referans ilgili serviste new'lenerek set edilebilir.
         //public KategoriModel KategoriDisplay { get; set; } 
-        
+
         [DisplayName("Kategori")]
         public string KategoriAdiDisplay { get; set; }
 
@@ -47,6 +50,15 @@ namespace Business.Models
 
         [DisplayName("Son Kullanma Tarihi")]
         public string SonKullanmaTarihiDisplay { get; set; }
+
+        // Sepet işlemleri için eklendi
+        public bool SepeteEklendiMi { get; set; } = false;
+
+        [DisplayName("Mağaza")]
+        public List<int> MagazaIdleri { get; set; }
+
+        [DisplayName("Mağaza")]
+        public List<string> MagazalarDisplay { get; set; }
         #endregion
     }
 }

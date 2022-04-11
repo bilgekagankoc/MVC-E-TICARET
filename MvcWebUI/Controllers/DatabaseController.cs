@@ -11,8 +11,18 @@ namespace MvcWebUI.Controllers
         {
             using (ETicaretContext db = new ETicaretContext())
             {
-                db.Kategoriler.RemoveRange();
-                db.Urunler.RemoveRange();
+                var kategori = db.Kategoriler.ToList();
+                var urun = db.Urunler.ToList();
+                db.Urunler.RemoveRange(urun);
+                db.Kategoriler.RemoveRange(kategori);
+                db.SaveChanges();
+                db.Kategoriler.Add(new Kategori()
+                {
+                    Aciklamasi="Cep Telefonu",
+                    Guid = Guid.NewGuid().ToString(),
+                    Adi="Cep Telefonu",
+
+                });
                 db.Kategoriler.Add(new Kategori()
                 {
                     Adi = "Bilgisayar",

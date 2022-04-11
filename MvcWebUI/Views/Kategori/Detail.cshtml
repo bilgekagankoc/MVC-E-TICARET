@@ -1,0 +1,30 @@
+﻿@model KategoriModel
+@{
+    ViewData["Title"] = "Kategori Detayı";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-primary">@TempData["Success"]</div>
+}
+<div class="row ml-5 mt-5">
+    <div class="col-12">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    
+</div>
+<div class="row m-5">
+    
+    <div class="col-5">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Adı : @Model.Adi
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Açıklaması : @Model.Aciklamasi</li>
+                <li class="list-group-item">Ürün Sayısı : @Model.UrunSayisiDisplay</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
